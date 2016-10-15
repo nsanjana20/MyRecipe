@@ -10,6 +10,7 @@ namespace RecipeAPI
     {
         #region Properties
         public static List<Recipe> Recipes { get; set; }
+        public static List<string> SearchedResults { get; set; }
         #endregion
 
         #region Constructors
@@ -31,6 +32,19 @@ namespace RecipeAPI
                 Console.WriteLine("Recipe name: {0}, Type: {1}, Description: {2}, Preparation time: {3}, Ingredients: {4}, Servings: {5}, Preparation Steps: {6}",
                     recipe.Name, recipe.Type, recipe.Description, recipe.PreparationTime, recipe.Ingredients, recipe.Servings, recipe.PreparationSteps);
        
+            }
+        }
+        public static void SearchRecipe(String name)
+        {
+            SearchedResults = new List<string>();
+            foreach (var recipe in Recipes)
+            {
+                if (recipe.Name.Contains(name))
+                    SearchedResults.Add(recipe.Name);                
+            }
+            foreach (var search in SearchedResults)
+            {
+                Console.WriteLine(search);
             }
         }
         #endregion
