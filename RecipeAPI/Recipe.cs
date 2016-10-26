@@ -17,42 +17,32 @@ namespace RecipeAPI
         public string Description { get; set; }        
         public decimal PreparationTime { get; set; }        
         public int Servings { get; set; }
-        public static List<RecipeIngredients> rIList { get; set; }
-        public static List<RecipePreparation> rPList { get; set; }
+        
+        public virtual ICollection<PreparationStep> PreparationSteps { get; set; }      
         #endregion
 
-        #region Constructors
-        public Recipe()
+       #region Methods
+        
+        public static void AddPreparationStep(PreparationStep step)
         {
-            rIList = new List<RecipeIngredients>();
-            rPList = new List<RecipePreparation>();
-        }
-        #endregion
-
-        #region Methods
-        public static void AddRecipeIngredients(RecipeIngredients rI)
-        {
-            rIList.Add(rI);
-        }
-        public static void AddRecipePreparation(RecipePreparation rP)
-        {
-            rPList.Add(rP);
-        }
-        public static void PrintRI(int id)
-        {
-            foreach (var r in rIList)
+            using (var model = new RecipeModel())
             {
-                if(r.RecipeId == id)
-                Console.WriteLine("Recipe id: {0}, Name: {1}, quantity: {2}", r.RecipeId, r.name, r.quantity);
+                model.Db_PreparationSteps.Add(step);
+                model.SaveChanges();
             }
         }
-        public static void PrintRP(int id)
+        
+        public static void PrintSteps(int id)
         {
-            foreach (var r in rPList)
+            using (var model = new RecipeModel())
             {
-                if(r.RecipeId == id)
-                Console.WriteLine("Recipe id: {0}, step number : {1}, step description: {2}", r.RecipeId, r.StepId, r.StepDescription);
+                foreach (var r in model.Db_PreparationSteps)
+                {
+                    if(r.RecipeId == id)
+                    Console.WriteLine("Recipe id: {0}, step number : {1}, step description: {2}", r.RecipeId, r.StepId, r.StepDescription);
+                }
             }
+            
         }
         #endregion
     }
