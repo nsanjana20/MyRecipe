@@ -62,7 +62,21 @@ namespace RecipeAPI
             }
             switch (choice)
             {
-                case 1: break;
+                case 1:
+                    Console.WriteLine("Enter recipe name");
+                    var name = Console.ReadLine();
+                    Console.WriteLine("Preparation time:");
+                    decimal preptime;
+                    if (!decimal.TryParse(Console.ReadLine(), out preptime))
+                        return;
+                    var recipe = new Recipe();
+                    recipe.Name = name;
+                    recipe.Type = "Appetizer";
+                    recipe.Description = "A slightly sweet batter makes these crispy rings extra special and delicious!";
+                    recipe.PreparationTime = preptime;
+                    recipe.Servings = 4;
+                    RecipeStore.AddRecipe(recipe);
+                    break;
                 case 2: break;
                 case 3: break;
                 default:
