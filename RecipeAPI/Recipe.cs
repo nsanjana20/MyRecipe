@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,13 @@ namespace RecipeAPI
         public string Description { get; set; }        
         public decimal PreparationTime { get; set; }        
         public int Servings { get; set; }
-        
-        public virtual ICollection<PreparationStep> PreparationSteps { get; set; }      
+
+        [ForeignKey("Account")]
+        public int AccountId { get; set; }
+        public virtual Account Account { get; set; }
+
+        public virtual ICollection<PreparationStep> PreparationSteps { get; set; }   
+        public virtual ICollection<RecipeIngredients> RecipeIngredients { get; set; }   
         #endregion
 
        #region Methods
