@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace RecipeAPI
 {
-    static class RecipeStore
+    public static class RecipeStore
     {
         #region Properties       
         public static List<string> SearchedResults { get; set; }
@@ -37,17 +38,12 @@ namespace RecipeAPI
             }
         }
 
-        public static void PrintRecipe()
+        public static List<Recipe> GetRecipes()
         {
             using (var model = new RecipeModel())
             {
-                foreach (var recipe in model.Db_Recipes)
-                {
-                    Console.WriteLine("Recipe id: {0}, Name: {1}, Type: {2}, Description: {3}, Preparation time: {4}, Servings: {5}",
-                        recipe.RecipeId, recipe.Name, recipe.Type, recipe.Description, recipe.PreparationTime, recipe.Servings);
-
-                    Recipe.PrintSteps(recipe.RecipeId);
-                }
+                var db_Recipes = model.Db_Recipes.Include(r => r.Account);
+                return db_Recipes.ToList();
             }
                         
         }
@@ -57,7 +53,7 @@ namespace RecipeAPI
             {
                 foreach (var r in model.Db_Ingredients)
                 {                   
-                    Console.WriteLine("Recipe id: {0}, Name: {1}, quantity: {2}", r.Id, r.name, r.quantity);
+                    Console.WriteLine("Recipe id: {0}, Name: {1}", r.Id, r.name);
                 }
             }            
         }

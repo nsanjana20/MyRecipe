@@ -17,9 +17,11 @@ namespace RecipeAPI
         public int RecipeID { get; set; }
         public virtual Recipe Recipe { get; set; }
 
-        [ForeignKey("Ingredients")]
-        public int IngredientId { get; set; }
-        public virtual Ingredients Ingredients { get; set; }
+        //[ForeignKey("Ingredients")]
+        //public int IngredientId { get; set; }
+        //public virtual Ingredients Ingredients { get; set; }
+
+        public string IngredientName { get; set; }
 
         public string quantity { get; set; }
     }

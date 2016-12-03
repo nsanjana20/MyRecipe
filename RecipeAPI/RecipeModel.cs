@@ -24,6 +24,8 @@ namespace RecipeAPI
         public virtual DbSet<Recipe> Db_Recipes { get; set; }
         public virtual DbSet<Ingredients> Db_Ingredients {get; set;}
         public virtual DbSet<PreparationStep> Db_PreparationSteps { get; set;}
+        public virtual DbSet<RecipeIngredients> Db_RecipeIngredients { get; set; }
+        public virtual DbSet<Account> Db_Accounts { get; set; }
     }
 
     //public class MyEntity
